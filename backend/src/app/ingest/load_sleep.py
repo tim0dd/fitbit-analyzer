@@ -1,8 +1,12 @@
+import os
 import pandas as pd
 
-def load_sleep_data(path: str) -> pd.DataFrame:
+from app.util.paths import get_data_path
+
+
+def load_sleep_data(path: str = None) -> pd.DataFrame:
     """
-    Load fitbit sleep score data from an exported CSV file. 
+    Load fitbit sleep score data from an exported CSV file.
 
     The CSV file contains the following columns:
     - sleep_log_entry_id: Unique identifier for each sleep log entry.
@@ -20,15 +24,18 @@ def load_sleep_data(path: str) -> pd.DataFrame:
     :param path: Path to the sleep score data.
     :return: DataFrame containing the sleep score data.
     """
-    
-    data = pd.read_csv(path, sep=',')
-    data = data.drop(columns=['sleep_log_entry_id']) # don't need this column
-    if data['duration_score'].isnull().all():
-        data = data.drop(columns=['duration_score'])
-    data['timestamp'] = pd.to_datetime(data['timestamp'])
-    data = data.rename(columns={'timestamp': 'time'})
-    data = data.set_index('time')
-    data['restlessness'] = data['restlessness'] * 100
+    if path is None:
+        path = f"{get_data_path()}/Fitbit/Sleep Score/sleep_score.csv"
+    assert os.path.exists(path), f"File not found: {path}"
+    data = pd.read_csv(path, sep=",")
+    data = data.drop(columns=["sleep_log_entry_id"])  # don't need this column
+    if data["duration_score"].isnull().all():
+        data = data.drop(columns=["duration_score"])
+   
+    data["timestamp"] = pd.to_datetime(data["timestamp"])
+    data = data.rename(columns={"timestamp": "time"})
+    data = data.set_index("time")
+    data["restlessness"] = data["restlessness"] * 100
     # print headers
-    print('Headers:' + str(data.columns))
+    print("Headers:" + str(data.columns))
     return data

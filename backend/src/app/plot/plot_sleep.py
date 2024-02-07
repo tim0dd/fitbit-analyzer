@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-from fitbit_analyzer.util.paths import get_out_path
+from app.util.paths import get_out_path
 
 def plot_sleep_data(data: pd.DataFrame, columns: list,  out_path: str=None) -> None:
     """
