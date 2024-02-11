@@ -1,14 +1,14 @@
 from typing import List, Dict, Union
 from fastapi import APIRouter
 
-from app.ingest import load_sleep
+from app.ingest import load_sleep_csv
 from typing import List, Dict, Any
 
 router = APIRouter()
 
 @router.get("/data_series")
 def get_data_series() -> List[Dict[str, Union[int, float]]]:
-    data = load_sleep.load_sleep_data()
+    data = load_sleep_csv.load_sleep_data()
     data = data.reset_index()[["time", "overall_score"]]
     data = data.rename(columns={"overall_score": "value"})
     # convert datetime to UTC seconds ?!
