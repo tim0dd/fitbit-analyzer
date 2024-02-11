@@ -1,0 +1,7 @@
+.NavigationMenuLink {
+  text-decoration: "overline";
+}
+.NavigationMenuLink[data-active] {
+  text-decoration: "underline";
+}
+/* TODO: seemingly not working */
