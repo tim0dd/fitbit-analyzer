@@ -31,7 +31,8 @@ def load_sleep_data(path: str = None) -> pd.DataFrame:
     data = data.drop(columns=["sleep_log_entry_id"])  # don't need this column
     if data["duration_score"].isnull().all():
         data = data.drop(columns=["duration_score"])
-   
+    if data["composition_score"].isnull().all():
+        data = data.drop(columns=["composition_score"])
     data["timestamp"] = pd.to_datetime(data["timestamp"])
     data = data.rename(columns={"timestamp": "time"})
     data = data.set_index("time")
