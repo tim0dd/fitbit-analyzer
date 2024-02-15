@@ -2,17 +2,16 @@ from fastapi import Response, Request
 from starlette.background import BackgroundTask
 from starlette.responses import StreamingResponse
 from fastapi.routing import APIRoute
-from starlette.types import Message
-from typing import Callable, Dict, Any
+from typing import Callable
 import logging
 
 
-def log_info(req_body, res_body):
-    logging.info(req_body)
-    logging.info(res_body)
+def log_route(req_body, res_body):
+    logging.getLogger(__name__).debug(req_body)
+    logging.getLogger(__name__).debug(res_body)
 
 
-class LoggingRoute(APIRoute):
+class LoggedRoute(APIRoute):
     def get_route_handler(self) -> Callable:
         original_route_handler = super().get_route_handler()
 
@@ -25,7 +24,7 @@ class LoggingRoute(APIRoute):
                 async for item in response.body_iterator:
                     res_body += item
 
-                task = BackgroundTask(log_info, req_body, res_body)
+                task = BackgroundTask(log_route, req_body, res_body)
                 return Response(
                     content=res_body,
                     status_code=response.status_code,
@@ -35,7 +34,7 @@ class LoggingRoute(APIRoute):
                 )
             else:
                 res_body = response.body
-                response.background = BackgroundTask(log_info, req_body, res_body)
+                response.background = BackgroundTask(log_route, req_body, res_body)
                 return response
 
         return custom_route_handler
