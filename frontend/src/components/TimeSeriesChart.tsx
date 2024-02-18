@@ -6,7 +6,6 @@ import {
   UTCTimestamp,
 } from "lightweight-charts";
 import type { TimeSeriesData } from "../services/api";
-import debounce from "lodash/debounce";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Toggle } from "./ui/toggle";
 
@@ -47,17 +46,6 @@ const TimeSeriesChart = ({ data, title }: TimeSeriesChartProps) => {
       lineSeries.setData(lineData);
     }
   }, [data, lineSeries]);
-
-  // Resize chart on window resize
-  useEffect(() => {
-    const handleResize = debounce(() => {
-      if (chart) {
-        chart.applyOptions({ width: chartContainerRef.current?.offsetWidth });
-      }
-    }, 300);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [chart]);
 
   useEffect(() => {
     if (lineSeries) {
@@ -108,11 +96,7 @@ const TimeSeriesChart = ({ data, title }: TimeSeriesChartProps) => {
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="p-2">
-        <Toggle
-          pressed={showEMA}
-          onPressedChange={toggleEMA}
-          className="mb-3"
-        >
+        <Toggle pressed={showEMA} onPressedChange={toggleEMA} className="mb-3">
           {showEMA ? "EMA" : "EMA"}
         </Toggle>
         <div
