@@ -1,10 +1,11 @@
 import os
+from typing import Optional
 import pandas as pd
 
 from app.util.paths import get_data_path
 
 
-def load_sleep_data(path: str = None) -> pd.DataFrame:
+def load_sleep_data(path: Optional[str] = None) -> pd.DataFrame:
     """
     Load fitbit sleep score data from an exported CSV file.
 

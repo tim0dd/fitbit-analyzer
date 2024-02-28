@@ -22,7 +22,7 @@ class LoggedRoute(APIRoute):
             if isinstance(response, StreamingResponse):
                 res_body = b""
                 async for item in response.body_iterator:
-                    res_body += item
+                    res_body += item if isinstance(item, bytes) else item.encode('utf-8')
 
                 task = BackgroundTask(log_route, req_body, res_body)
                 return Response(

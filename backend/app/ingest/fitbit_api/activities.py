@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Any, Dict, Optional
-from app.ingest.fitbit_api.api_base import ApiBase
+from .api_base import ApiBase
 
 
 class ActivityResource(Enum):

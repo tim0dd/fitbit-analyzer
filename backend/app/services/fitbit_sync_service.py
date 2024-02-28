@@ -1,11 +1,14 @@
-from app.ingest.fitbit_api.api_base import ApiBase
+from app.ingest.fitbit_api import ApiBase
 from app.util.repeated_tasks import RepeatedTask, RepeatedTaskRegistry
-from app.ingest.fitbit_api.sleep import GetSleepApiBuilder
-from app.ingest.fitbit_api.breathing_rate import GetBreathingRateApiBuilder
-from app.ingest.fitbit_api.cardio_fitness import GetCardioFitnessApiBuilder
-from app.ingest.fitbit_api.heart_rate import GetHeartRateApiBuilder
-from app.ingest.fitbit_api.hrv import GetHrvApiBuilder
-from app.ingest.fitbit_api.temperature import GetTemperatureApiBuilder
+from app.ingest.fitbit_api import (
+    ApiBase,
+    GetSleepApiBuilder,
+    GetBreathingRateApiBuilder,
+    GetCardioFitnessApiBuilder,
+    GetHeartRateApiBuilder,
+    GetHrvApiBuilder,
+    GetTemperatureApiBuilder,
+)
 from app.cfg import fitbit_access
 from app.util.paths import get_data_path
 import json

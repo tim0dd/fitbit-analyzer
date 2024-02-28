@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from typing import Optional
 
 from app.util.paths import get_root_path
 
@@ -37,7 +38,7 @@ def try_find_fitbit_access_token() -> bool:
     return False
 
 
-def get_fitbit_access_token_from_env() -> str | None:
+def get_fitbit_access_token_from_env() -> Optional[str]:
     token = os.environ.get(FITBIT_ACCESS_TOKEN_ENV_VAR)
     if token is None or token == "":
         return None

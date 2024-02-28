@@ -1,10 +1,12 @@
 from enum import Enum
 from typing import Any, Dict, Optional
-from app.ingest.fitbit_api.api_base import ApiBase
+from .api_base import ApiBase
+
 
 class TempType(Enum):
     SKIN = "skin"
     CORE = "core"
+
 
 class GetTemperatureApiBuilder:
     def __init__(self, api_base: ApiBase, endpoint: TempType):
