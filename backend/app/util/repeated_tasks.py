@@ -1,5 +1,4 @@
 from functools import wraps
-import aiohttp
 import asyncio
 import logging
 from typing import Callable, Coroutine, Any, List

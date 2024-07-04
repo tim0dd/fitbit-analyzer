@@ -13,6 +13,8 @@ from app.cfg import fitbit_access
 from app.util.paths import get_data_path
 import json
 
+from app.ingest.fitbit_api.temperature import TempType
+
 
 class FitbitSyncService:
     def __init__(self):
@@ -56,16 +58,15 @@ class FitbitSyncService:
             .end_date("2023-01-02")
         )
         get_skin_temperature_req = (
-            GetTemperatureApiBuilder(self.api_base, "skin")
+            GetTemperatureApiBuilder(self.api_base, TempType.SKIN)
             .start_date("2023-01-01")
             .end_date("2023-01-02")
         )
         get_core_temperature_req = (
-            GetTemperatureApiBuilder(self.api_base, "core")
+            GetTemperatureApiBuilder(self.api_base, TempType.CORE)
             .start_date("2023-01-01")
             .end_date("2023-01-02")
         )
-
         breathing_rate_response = await get_breathing_rate_req.exec()
         print(breathing_rate_response)
         dump_to_json("breathing_rate", breathing_rate_response)

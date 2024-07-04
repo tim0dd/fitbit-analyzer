@@ -1,0 +1,7 @@
+aiohttp==3.9.5
+fastapi==0.111.0
+motor==3.5.0
+pandas==2.2.2
+pydantic==2.8.2
+setuptools==70.2.0
+starlette==0.37.2

@@ -5,7 +5,6 @@ import pandas as pd
 from app.ingest import load_sleep_csv
 from typing import List, Dict
 
-from app.util.paths import get_data_path
 from typing import List, Dict, Union
 
 router = APIRouter()
